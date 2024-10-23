@@ -1,0 +1,72 @@
+/* TiptapCommentEditor.module.css */
+.editorboard{
+    position: relative;
+    width: 30vw;
+    margin: auto auto;
+    margin-top: 15vh;
+}
+.editor {
+    display: flex;
+  }
+.editor * {
+    outline: none;
+    border: none;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    min-width: 150px;
+ }
+.thread-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    position:relative;
+    align-items: stretch;
+  }
+
+  .avatarPanel{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    
+    user-select: none; /* Prevent text selection */  
+    -webkit-user-select: none; /* For Safari */  
+    -moz-user-select: none; /* For Firefox */  
+    -ms-user-select: none; /* For Internet Explorer/Edge */ 
+  }
+  .crossLine{
+    position: relative;
+    border-left: 3px solid #ccc;
+    height: 100%;
+    left: 43%;
+    flex: 1;
+  }
+  
+  .avatar {
+    width: 50px;
+    height: 50px;
+    background: #ccc;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+  
+  .content {
+    
+    border-radius: 8px;
+    min-height: 40px;
+  }
+  
+  .name{
+    display: flex;
+    margin-bottom: -3px;
+    user-select: none; /* Prevent text selection */  
+    -webkit-user-select: none; /* For Safari */  
+    -moz-user-select: none; /* For Firefox */  
+    -ms-user-select: none; /* For Internet Explorer/Edge */ 
+  }
+  .name .displayName{
+    font-size: 1.2rem;
+  }
+  .name .userName{
+    padding-left: 5px;
+    color: gray;
+  }

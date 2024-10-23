@@ -15,8 +15,8 @@ const TiptapCommentEditor: React.FC = () => {
     ]);
 
     const enterPressCount = useRef<number>(0); // Track consecutive Enter presses
-    const ctrlAPressCount = useRef<number>(0); 
-    const selectRef = useRef<boolean>(false);
+    const ctrlAPressCount = useRef<number>(0); //This is for the selecting key press count
+    const selectRef = useRef<boolean>(false); // this is for the all delete flag
 
     const editor = useEditor({
         extensions: [StarterKit],
@@ -47,7 +47,11 @@ const TiptapCommentEditor: React.FC = () => {
                 prevThreads.filter((thread) => thread.id !== threadId)
             );
         }
+        if(threads.length > 1)
+        editor?.commands.setContent(threads[threads.length - 2].content);
     }, [threads]);
+
+
     const removeAll= useCallback(() => {
         setThreads([{ id: 'thread-1', content: '' }]);
     }, []);
@@ -56,6 +60,7 @@ const TiptapCommentEditor: React.FC = () => {
     const handleKeyDown = (event: React.KeyboardEvent) => {
         const { key, shiftKey } = event;
 
+        //Add New Item when Enter key double pressed
         if (key === 'Enter' && !shiftKey) {
             event.preventDefault(); 
             enterPressCount.current += 1; // Increment Enter press count  
@@ -67,7 +72,9 @@ const TiptapCommentEditor: React.FC = () => {
                 editor?.commands.setContent('');
                 enterPressCount.current = 0; // Reset count  
             }
-    }
+        }
+
+        //Remove item when backspace pressed
     else if (key === 'Backspace') {
         if(selectRef.current)
         {
@@ -75,19 +82,23 @@ const TiptapCommentEditor: React.FC = () => {
             selectRef.current = false;
         }
         else {
-        const testContent = editor?.getHTML().replaceAll("<p></p>","");
-        console.log(testContent)
-        if(testContent?.length == 0 && threads.length > 1)
-        {
-            removeThread(threads[threads.length - 1].id);
-            setTimeout(() => editor?.commands.focus(), 0)
-        }}
+            const testContent = editor?.getHTML().replaceAll("<p></p>","");
+            if(testContent?.length == 0 && threads.length > 1)
+            {
+                removeThread(threads[threads.length - 2].id);
+            }
+        }
+        
+        setTimeout(() => editor?.commands.focus(), 0)
     }
+
+    //else
     else {
         enterPressCount.current  = 0;
     }
 
 
+    //For the Select all content
     if (event.ctrlKey && event.key === 'a') {  
 
         if (ctrlAPressCount.current === 0) {  
